@@ -20,3 +20,7 @@ def create_game(request):
             return redirect('games:game_list')
 
     return render(request, 'games/create_game.html', {'form': form})
+
+def game_detail(request, pk):
+    game = Game.objects.get(id=pk)
+    return render(request, 'games/game_detail.html', {'game': game})

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='game-block'>
+    <div class="game-img-container">
+        <img class="game-img" src="{{ game.cover_image.url }}">
+    </div>
+    <div class="game-body d-flex">
+        <div class="game-desc">
+            {{game.description|safe}}
+        </div>
+        <div class="game-data">
+            <div class="sell-game mb-3">
+                <h3>Purchase</h3>
+                <div class="d-flex">
+                    <button class="btn btn-success">Buy Now</button>
+                    <span class="ml-2 mt-1">${{game.price}}</span>
+                </div>
+            </div>
+            <p>Developer: {{game.developer}}</p>
+            <p>State: {{game.release_status}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

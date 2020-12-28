@@ -6,12 +6,12 @@
     <div class="game-list-container mt-4">
         {% for game in games %}
             <div class="card game-container">
-                <img class="card-img-top" src="{{game.cover_image.url}}" alt="Game cover">
+                <a href="{% url 'games:game_detail' pk=game.pk %}"><img class="card-img-top" src="{{game.cover_image.url}}" alt="Game cover"></a>
                 <div class="card-body">
                     <h5 class="card-title">{{game.title}}</h5>
                     <p class="card-text">{{game.short_description}}</p>
                     <p class="text-light">{{game.developer}}</p>
-                    <button class="btn btn-primary">Add to Cart</button>
+                    <button class="btn btn-success">Add to Cart</button>
                 </div>
             </div>
         {% endfor %}
