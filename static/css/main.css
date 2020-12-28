@@ -58,3 +58,13 @@ body {
     color: black;
     background-color: white;
 }
+
+.game-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.game-container {
+    background-color: #5c677d;
+}
