@@ -17,10 +17,10 @@ body {
     margin-bottom: 50px;
 }
 
-.form-container input {
-    background-color: #33415C;
+.form-container input, textarea {
+    background-color: white;
     padding:5px 10px;
-    color: white;
+    color: black;
     border-radius:0;
     outline: none;
     border: none;
@@ -31,7 +31,30 @@ body {
 }
 
 .form-container input:focus {
-    background-color: #33415C;
-    color: white;
+    background-color: white;
+    color: black;
     outline: none;
+}
+
+.game-form-group {
+    margin-bottom: 30px;
+}
+
+.game-form-group label {
+    margin-bottom: 10px;
+}
+
+.game-form-container {
+    width: 70%;
+    padding: 50px;
+}
+
+.game-form-container input {
+    background-color: white;
+    color: black;
+}
+
+.game-form-container input:focus {
+    color: black;
+    background-color: white;
 }
