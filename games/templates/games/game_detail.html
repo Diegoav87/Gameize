@@ -13,12 +13,13 @@
             <div class="sell-game mb-3">
                 <h3>Purchase</h3>
                 <div class="d-flex">
-                    <button class="btn btn-success">Buy Now</button>
+                    <button class="btn btn-success">Add to Cart</button>
                     <span class="ml-2 mt-1">${{game.price}}</span>
                 </div>
             </div>
             <p>Developer: {{game.developer}}</p>
             <p>State: {{game.release_status}}</p>
+            <p>Published by: <a class="link" href="{% url 'accounts:user_profile' username=game.user.username %}">{{game.user}}</a></p>
         </div>
     </div>
 </div>

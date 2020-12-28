@@ -97,3 +97,35 @@ body {
     background-color: #5c677d;
     padding: 20px;
 }
+
+.small-profile-pic {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.profile-container {
+    width: 75%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.profile-header {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.user-info {
+    margin-left: 50px;
+}
+
+.link {
+    text-decoration: none;
+    color: lightgray;
+}

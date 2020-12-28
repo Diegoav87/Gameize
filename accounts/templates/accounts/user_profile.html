@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="profile-container">
+    <div class='profile-header'>
+        <img class="profile-pic" src="{{target_user.profile.avatar.url}}">
+        <div class="user-info">
+            <h3>{{target_user.username}}</h3>
+            <p>{{target_user.profile.bio}}</p>
+            <p>Website: {{target_user.profile.website}}</p>
+        </div>
+    </div>
+
+    <div class="game-list-container mt-4">
+        {% for game in target_user.games.all %}
+            <div class="card game-container">
+                <a href="{% url 'games:game_detail' pk=game.pk %}"><img class="card-img-top" src="{{game.cover_image.url}}" alt="Game cover"></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{game.title}}</h5>
+                    <p class="card-text">{{game.short_description}}</p>
+                    <p class="text-light">{{game.developer}}</p>
+                    <button class="btn btn-success">Add to Cart</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -18,11 +18,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto w-100 justify-content-end">
             {% if user.is_authenticated %}
-                <li class="nav-item">
+                <li class="nav-item mr-auto">
                     <a class="nav-link" href="{% url 'games:create_game' %}">Upload Game</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                    <div class="profile-pic-container d-flex">
+                        <a href="{% url 'accounts:user_profile' username=user.username %}"><img class="small-profile-pic" src="{{user.profile.avatar.url}}"></a>
+                        <a href="{% url 'accounts:user_profile' username=user.username %}" class="nav-link">{{user.username}}</a>
+                    </div>
                 </li>
             {% else %}
                 <li class="nav-item">
