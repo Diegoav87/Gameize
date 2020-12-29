@@ -46,3 +46,18 @@ def logout_user(request):
 def user_profile(request, username):
     user = User.objects.get(username__iexact=username)
     return render(request, 'accounts/user_profile.html', {'target_user': user})
+
+@login_required
+def edit_profile(request, username):
+    user = User.objects.get(username__iexact=username)
+    form = ProfileForm(instance=user.profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user.profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:user_profile', username=username)
+
+    return render(request, 'accounts/edit_profile.html', {'form': form})
+

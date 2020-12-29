@@ -22,5 +22,5 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['bio'].widget.attrs.update({'class': 'form-control'})
+        self.fields['bio'].widget.attrs.update({'class': 'form-control', 'cols': '50', 'rows': '2'})
         self.fields['website'].widget.attrs.update({'class': 'form-control'})

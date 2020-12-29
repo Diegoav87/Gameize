@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3>{{user.username}}</h3>
+        <div>
+            <img class="profile-pic mb-3" src="{{user.profile.avatar.url}}">
+        </div>
+        <div class="form-group">
+            {{form.avatar.label}}
+            {{form.avatar}}
+        </div>
+        <div class="form-group">
+            {{form.bio.label}}
+            {{form.bio}}
+        </div>
+        <div class="form-group">
+            {{form.website.label}}
+            {{form.website}}
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+
+{% endblock %}

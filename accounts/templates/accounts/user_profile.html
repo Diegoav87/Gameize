@@ -8,6 +8,7 @@
             <h3>{{target_user.username}}</h3>
             <p>{{target_user.profile.bio}}</p>
             <p>Website: {{target_user.profile.website}}</p>
+            <a class="btn btn-secondary" href="{% url 'accounts:edit_profile' username=user.username %}">Edit profile</a>
         </div>
     </div>
 
