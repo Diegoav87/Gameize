@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="form-container">
+    <h5 class="card-title">Delete Game?</h5>
+    <p class="card-text">Deleting a game will permanently delete it from the database.</p>
+    <form method="POST" action="{% url 'games:delete_game' pk=game.pk %}">
+        {% csrf_token %}
+        <a class="btn btn-secondary" href="{% url 'accounts:user_profile' username=user.username %}">Keep Game</a>
+        <button type="submit" class="btn btn-danger">Delete Game</button>
+    </form>
+</div>
+
+{% endblock %}
