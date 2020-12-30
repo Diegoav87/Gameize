@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import GameForm
-from .models import Game
+from .models import Game, Order, OrderItem
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def game_list(request):
@@ -23,7 +25,6 @@ def create_game(request):
 
     return render(request, 'games/create_game.html', {'form': form})
 
-@login_required
 def game_detail(request, pk):
     game = Game.objects.get(id=pk)
     return render(request, 'games/game_detail.html', {'game': game})
@@ -51,3 +52,18 @@ def delete_game(request, pk):
         return redirect('accounts:user_profile', username=request.user.username)
 
     return render(request, 'games/delete_game.html', {'game': game})
+
+def updateItem(request):
+    data = json.loads(request.body)
+    gameId = data['gameId']
+    action = data['action']
+    print(action, gameId)
+
+    return JsonResponse('Item added', safe=False)
+
+@login_required
+def cart(request):
+    order, created = Order.objects.get_or_create(user=request.user, complete=False)
+    items = order.orderitem_set.all()
+
+    return render(request, 'games/cart.html', {'items': items})

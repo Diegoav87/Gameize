@@ -129,3 +129,13 @@ body {
     text-decoration: none;
     color: lightgray;
 }
+
+.cart-circle {
+    background-color: blue;
+    top: 0;
+    left: 10;
+    border-radius: 35%;
+    width: 15px;
+    font-size: 12px;
+    text-align: center;
+}

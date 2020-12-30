@@ -8,7 +8,10 @@
             <h3>{{target_user.username}}</h3>
             <p>{{target_user.profile.bio}}</p>
             <p>Website: {{target_user.profile.website}}</p>
-            <a class="btn btn-secondary" href="{% url 'accounts:edit_profile' username=user.username %}">Edit profile</a>
+            {% if target_user == user %}
+                <a class="btn btn-secondary" href="{% url 'accounts:edit_profile' username=user.username %}">Edit profile</a>
+                <a class="btn btn-secondary" href="{% url 'accounts:logout' %}">Log Out</a>
+            {% endif %}
         </div>
     </div>
 
@@ -26,7 +29,7 @@
                             <a class="btn btn-danger ml-2" href="{% url 'games:delete_game' pk=game.pk %}">Delete</a>
                         </div>
                     {% else %}
-                        <button class="btn btn-success">Add to Cart</button>
+                        <button class="btn btn-success cart-btn" data-game="{{game.id}}" data-action="add">Add to Cart</button>
                     {% endif %}
                 </div>
             </div>

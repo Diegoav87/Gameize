@@ -42,7 +42,6 @@ def logout_user(request):
     logout(request)
     return redirect('games:game_list')
 
-@login_required
 def user_profile(request, username):
     user = User.objects.get(username__iexact=username)
     return render(request, 'accounts/user_profile.html', {'target_user': user})
