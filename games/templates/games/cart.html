@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Cart</h1>
+<div class="cart-container">
+    <div class="cart-items">
+        <h3>Items</h3>
+        {% for item in items %}
+        <div class="cart-game-container mt-4 ml-auto mr-auto">
+            <img class="cart-img" src="{{item.game.cover_image.url}}">
+            <div class="cart-game-info">
+                <h4>{{item.game.title}}</h4>
+                <p>${{item.game.price}}</p>
+                <div class="quantity mb-4">
+                    <button class="btn btn-primary btn-sm mr-1">-</button>
+                    <span>{{item.quantity}}</span>
+                    <button class="btn btn-primary btn-sm ml-1">+</button>
+                </div>
+                <h5>Total</h5>
+                <p>${{item.get_total}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="cart-info">
+        <h3>Order</h3>
+        <p>Items: {{item_count}}</p>
+        <p>Total: ${{total}}</p>
+        <a href="#" class="btn btn-success">Checkout</a>
+    </div>
+</div>
 
 {% endblock %}

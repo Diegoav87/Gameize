@@ -8,7 +8,16 @@ import json
 # Create your views here.
 def game_list(request):
     games = Game.objects.all().order_by('-created_at')
-    return render(request, 'games/game_list.html', {'games': games})
+    item_count = 0
+
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user, complete=False)
+        items = order.orderitem_set.all()
+
+        for item in items:
+            item_count += item.quantity
+
+    return render(request, 'games/game_list.html', {'games': games, 'item_count': item_count})
 
 @login_required
 def create_game(request):
@@ -59,6 +68,20 @@ def updateItem(request):
     action = data['action']
     print(action, gameId)
 
+    game = Game.objects.get(id=gameId)
+    order, created = Order.objects.get_or_create(user=request.user, complete=False)
+    orderItem, created = OrderItem.objects.get_or_create(order=order, game=game)
+
+    if action == 'add':
+        orderItem.quantity += 1
+    elif action == 'remove':
+        orderItem.quantity -= 1
+    
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
     return JsonResponse('Item added', safe=False)
 
 @login_required
@@ -66,4 +89,10 @@ def cart(request):
     order, created = Order.objects.get_or_create(user=request.user, complete=False)
     items = order.orderitem_set.all()
 
-    return render(request, 'games/cart.html', {'items': items})
+    total = 0
+    item_count = 0
+    for item in items:
+        total += (item.game.price) * item.quantity
+        item_count += item.quantity
+
+    return render(request, 'games/cart.html', {'items': items, 'total': total, 'item_count': item_count})
