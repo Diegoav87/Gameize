@@ -11,9 +11,9 @@
                 <h4>{{item.game.title}}</h4>
                 <p>${{item.game.price}}</p>
                 <div class="quantity mb-4">
-                    <button class="btn btn-primary btn-sm mr-1">-</button>
+                    <button class="btn btn-primary btn-sm mr-1 cart-btn" data-game="{{item.game.id}}" data-action="remove">-</button>
                     <span>{{item.quantity}}</span>
-                    <button class="btn btn-primary btn-sm ml-1">+</button>
+                    <button class="btn btn-primary btn-sm ml-1 cart-btn" data-game="{{item.game.id}}" data-action="add">+</button>
                 </div>
                 <h5>Total</h5>
                 <p>${{item.get_total}}</p>
@@ -25,7 +25,8 @@
         <h3>Order</h3>
         <p>Items: {{item_count}}</p>
         <p>Total: ${{total}}</p>
-        <a href="#" class="btn btn-success">Checkout</a>
+        <a href="{% url 'games:checkout' %}" class="btn btn-success">Checkout</a>
+        <a href="{% url 'games:game_list' %}" class="btn btn-primary mt-2">Continue Shopping</a>
     </div>
 </div>
 

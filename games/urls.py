@@ -11,4 +11,6 @@ urlpatterns = [
     path('delete_game/<int:pk>/', views.delete_game, name='delete_game'),
     path('update_item/', views.updateItem, name='update_item'),
     path('cart/', views.cart, name='cart'),
+    path('ckeckout/', views.checkout, name='checkout'),
+    path('process_order/', views.process_order, name='process_order'),
 ]

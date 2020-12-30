@@ -4,6 +4,7 @@ from .models import Game, Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
+import datetime
 
 # Create your views here.
 def game_list(request):
@@ -96,3 +97,29 @@ def cart(request):
         item_count += item.quantity
 
     return render(request, 'games/cart.html', {'items': items, 'total': total, 'item_count': item_count})
+
+@login_required
+def checkout(request):
+    order, created = Order.objects.get_or_create(user=request.user, complete=False)
+    items = order.orderitem_set.all()
+
+    total = 0
+    item_count = 0
+    for item in items:
+        total += (item.game.price) * item.quantity
+        item_count += item.quantity
+
+    return render(request, 'games/checkout.html', {'items': items, 'total': total, 'item_count': item_count})
+
+@login_required
+def process_order(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    order, created = Order.objects.get_or_create(user=request.user, complete=False)
+    total = float(data['total'])
+    order.transaction_id = transaction_id
+
+    order.complete = True
+    order.save()
+
+    return JsonResponse('Payment complete', safe=False)

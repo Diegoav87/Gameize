@@ -167,11 +167,11 @@ body {
 }
 
 .cart-img {
-    max-width: 100%;
+    max-width: 450px;
     height: auto;
 }
 
 .cart-game-info {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 20px
+    ;
 }

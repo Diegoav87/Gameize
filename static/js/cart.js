@@ -30,6 +30,7 @@ function updateUserOrder(gameId, action) {
         return response.json()
     })
     .then(data => {
-        console.log(data)
+        console.log(data);
+        window.location.reload();
     })
 }
