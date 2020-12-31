@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
 from .forms import UserCreateForm, ProfileForm
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, user_permission
 from .models import Profile
 from django.contrib.auth.models import User
 
@@ -46,6 +46,7 @@ def user_profile(request, username):
     user = User.objects.get(username__iexact=username)
     return render(request, 'accounts/user_profile.html', {'target_user': user})
 
+@user_permission
 @login_required
 def edit_profile(request, username):
     user = User.objects.get(username__iexact=username)

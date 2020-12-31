@@ -11,9 +11,9 @@
                 <h4>{{item.game.title}}</h4>
                 <p>${{item.game.price}}</p>
                 <div class="quantity mb-4">
-                    <button class="btn btn-primary btn-sm mr-1 cart-btn" data-game="{{item.game.id}}" data-action="remove">-</button>
-                    <span>{{item.quantity}}</span>
-                    <button class="btn btn-primary btn-sm ml-1 cart-btn" data-game="{{item.game.id}}" data-action="add">+</button>
+                    <button class="btn btn-primary btn-sm mr-1 cart-btn quantity-btn-remove" data-game="{{item.game.id}}" data-action="remove">-</button>
+                    <span class="quantity-text" data-quantity="{{item.quantity}}">{{item.quantity}}</span>
+                    <button class="btn btn-primary btn-sm ml-1 cart-btn quantity-btn-add" data-game="{{item.game.id}}" data-action="add">+</button>
                 </div>
                 <h5>Total</h5>
                 <p>${{item.get_total}}</p>

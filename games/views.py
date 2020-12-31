@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
 import datetime
+from accounts.decorators import action_permission
 
 # Create your views here.
 def game_list(request):
@@ -40,6 +41,7 @@ def game_detail(request, pk):
     return render(request, 'games/game_detail.html', {'game': game})
 
 @login_required
+@action_permission
 def update_game(request, pk):
     game = Game.objects.get(id=pk)
     form = GameForm(instance=game)
@@ -54,6 +56,7 @@ def update_game(request, pk):
     return render(request, 'games/create_game.html', {'form': form})
 
 @login_required
+@action_permission
 def delete_game(request, pk):
     game = Game.objects.get(id=pk)
 
@@ -63,15 +66,16 @@ def delete_game(request, pk):
 
     return render(request, 'games/delete_game.html', {'game': game})
 
+@login_required
 def updateItem(request):
     data = json.loads(request.body)
     gameId = data['gameId']
     action = data['action']
-    print(action, gameId)
 
     game = Game.objects.get(id=gameId)
     order, created = Order.objects.get_or_create(user=request.user, complete=False)
     orderItem, created = OrderItem.objects.get_or_create(order=order, game=game)
+    items = order.orderitem_set.all()
 
     if action == 'add':
         orderItem.quantity += 1
@@ -83,7 +87,13 @@ def updateItem(request):
     if orderItem.quantity <= 0:
         orderItem.delete()
 
-    return JsonResponse('Item added', safe=False)
+    item_count = 0
+    for item in items:
+        item_count += item.quantity
+
+    game_data = {'item_count': item_count}
+
+    return JsonResponse(game_data, safe=False)
 
 @login_required
 def cart(request):

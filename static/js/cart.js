@@ -1,4 +1,5 @@
 const cartBtns = document.getElementsByClassName('cart-btn');
+const cartIcon = document.querySelector('.cart-circle');
 
 for (let i = 0; i < cartBtns.length; i++ ) {
     cartBtns[i].addEventListener('click', function() {
@@ -9,12 +10,12 @@ for (let i = 0; i < cartBtns.length; i++ ) {
         if (user === 'AnonymousUser') {
             console.log('Not logged in');
         } else {
-            updateUserOrder(gameId, action)
+            updateUserOrder(gameId, action, cartBtns[i])
         }
     })
 }
 
-function updateUserOrder(gameId, action) {
+function updateUserOrder(gameId, action, btn) {
     console.log('Sending data...');
 
     const url = '/update_item/';
@@ -30,7 +31,33 @@ function updateUserOrder(gameId, action) {
         return response.json()
     })
     .then(data => {
-        console.log(data);
-        window.location.reload();
+        cartIcon.textContent = data['item_count'];
+
+        if (btn.classList.contains('quantity-btn-add')) {
+            let currentNum = parseInt(btn.previousSibling.previousSibling.textContent);
+            currentNum += 1;
+
+            if (currentNum > 0) {
+                btn.previousSibling.previousSibling.textContent = currentNum;
+                const totalBtn = btn.parentElement.nextSibling.nextSibling.nextSibling.nextSibling;
+                let price = btn.parentElement.previousSibling.previousSibling.textContent;
+                price = price.substring(1);
+                price = parseFloat(price);
+                totalBtn.textContent = `$${price * currentNum}`;
+            }
+            
+        } else if (btn.classList.contains('quantity-btn-remove')) {
+            let currentNum = parseInt(btn.nextSibling.nextSibling.textContent);
+            currentNum -= 1;
+
+            if (currentNum > 0) {
+                btn.nextSibling.nextSibling.textContent = currentNum;
+                const totalBtn = btn.parentElement.nextSibling.nextSibling.nextSibling.nextSibling;
+                let price = btn.parentElement.previousSibling.previousSibling.textContent;
+                price = price.substring(1);
+                price = parseFloat(price);
+                totalBtn.textContent = `$${price * currentNum}`;
+            }
+        }
     })
 }
