@@ -119,7 +119,13 @@ def process_order(request):
     total = float(data['total'])
     order.transaction_id = transaction_id
 
-    order.complete = True
+    items = order.orderitem_set.all()
+    check_total = 0
+    for item in items:
+        check_total += float(item.game.price) * float(item.quantity)
+
+    if total == float(check_total):
+        order.complete = True
     order.save()
 
     return JsonResponse('Payment complete', safe=False)
