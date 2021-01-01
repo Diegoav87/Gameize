@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +52,7 @@
                 <li class="nav-item">
                     <div class="position-relative">
                         <a class="nav-link" href="{% url 'games:cart' %}"><i class="fas fa-shopping-cart"></i></a>
-                        <span class="position-absolute cart-circle">0</span>
+                        <span class="position-absolute cart-circle">{% current_order_items request %}</span>
                     </div>
                 </li>
             {% else %}

@@ -23,8 +23,8 @@
     </div>
     <div class="cart-info">
         <h3>Order</h3>
-        <p>Items: {{item_count}}</p>
-        <p>Total: ${{total}}</p>
+        <p class="cart-item-count">Items: {{item_count}}</p>
+        <p class="global-total">Total: ${{total}}</p>
         <a href="{% url 'games:checkout' %}" class="btn btn-success">Checkout</a>
         <a href="{% url 'games:game_list' %}" class="btn btn-primary mt-2">Continue Shopping</a>
     </div>

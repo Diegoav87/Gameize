@@ -7,6 +7,7 @@ import json
 import datetime
 from accounts.decorators import action_permission
 
+
 # Create your views here.
 def game_list(request):
     games = Game.objects.all().order_by('-created_at')
